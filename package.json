@@ -1,0 +1,30 @@
+{
+  "name": "teste_api_graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "pactum": "^3.9.1"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "jest-html-reporter": "^4.4.0"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      [
+        "jest-html-reporter",
+        {
+          "pageTitle": "Relatório de Testes",
+          "outputPath": "./reports/report.html",
+          "includeFailureMsg": true,
+          "includeConsoleLog": true
+        }
+      ]
+    ]
+  }
+}
