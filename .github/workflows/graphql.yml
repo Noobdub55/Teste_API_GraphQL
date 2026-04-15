@@ -1,3 +1,8 @@
+name: Testes GraphQL + Relatório
+
+on:
+  push:
+
 permissions:
   contents: read
   pages: write
@@ -24,9 +29,9 @@ jobs:
 
       - name: Ajustar nome para index.html
         run: |
-         cp ./reports/report.html ./reports/index.html
+          cp ./reports/report.html ./reports/index.html
 
-      - name: Upload artifact (relatório)
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./reports
@@ -35,6 +40,11 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Deploy no GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
