@@ -1,8 +1,7 @@
-name: Testes GraphQL + Relatório
-
-on:
-  push:
-    branches: [ "main" ]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   test:
@@ -10,10 +9,10 @@ jobs:
 
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -23,8 +22,15 @@ jobs:
       - name: Rodar testes
         run: npm test
 
-      - name: Publicar relatório no GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload artifact (relatório)
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports
+          path: ./reports
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy no GitHub Pages
+        uses: actions/deploy-pages@v4
