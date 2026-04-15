@@ -22,6 +22,10 @@ jobs:
       - name: Rodar testes
         run: npm test
 
+      - name: Ajustar nome para index.html
+        run: |
+         cp ./reports/report.html ./reports/index.html
+
       - name: Upload artifact (relatório)
         uses: actions/upload-pages-artifact@v3
         with:
